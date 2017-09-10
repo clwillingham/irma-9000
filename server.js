@@ -21,7 +21,6 @@ app.use(express.static('public'));
 io.on('connection', function (socket) {
     socket.on('new data', function (data) {
         io.sockets.emit('data', data);
-        fs.appendFileSync('fancy-log.csv', moment().format()+','+data+'\r\n'); //I know using synchronous in a callback, probably not proper
     });
 });
 
@@ -31,5 +30,6 @@ server.listen(serverPort, function () {
     parser.on('data', function(data){
         console.log(data);
         io.emit('data', data);
+        fs.appendFileSync('fancy-log.csv', moment().format()+','+data+'\r\n'); //I know using synchronous in a callback, probably not proper
     });
 });
