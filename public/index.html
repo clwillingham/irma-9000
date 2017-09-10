@@ -4,14 +4,47 @@
     <meta charset="UTF-8">
     <title>Test</title>
     <script src="/socket.io/socket.io.js"></script>
-    <script>
-        var socket = io();
-        socket.on('data', function (data) {
-            console.log(data);
-        });
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <script type="text/javascript">
+        window.onload = function () {
+            var socket = io('http://cloud.catsceo.xyz:3000');
+            socket.on('data', function (data) {
+                var out = data.split(',').map(function(i){
+                    return parseFloat(i);
+                });
+                console.log(out);
+                Plotly.extendTraces('graph', {
+                    y: [[out[0]]],
+                    x: [[Date.now()]]
+                }, [0]);
+            });
+            var dps = []; // dataPoints
+
+            function rand() {
+                return Math.random();
+            }
+
+            Plotly.plot('graph', [{
+                y: [].map(rand),
+                x: [],
+                mode: 'lines',
+                line: {color: '#80CAF6'}
+            }]);
+
+            var cnt = 0;
+
+            var interval = setInterval(function() {
+
+
+
+                if(cnt === 100) clearInterval(interval);
+            }, 300);
+
+        }
     </script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 </head>
 <body>
-<h1>Hello world!</h1>
+    <div id="graph" style="height: 300px; width:100%;"></div>
 </body>
 </html>
