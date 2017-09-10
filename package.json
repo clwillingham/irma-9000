@@ -1,0 +1,12 @@
+{
+  "name": "irma-9000",
+  "version": "1.0.0",
+  "description": "Mini project thrown together as Hurrican Irma Approaches, can it be finished before the power dies, we shall see!",
+  "main": "server.js",
+  "repository": "https://github.com/clwillingham/irma-9000.git",
+  "author": "Chris Willingham (Software), Brett Schubert (Hardware), Irma (Scheduling)",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.15.4"
+  }
+}

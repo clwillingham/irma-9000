@@ -1,0 +1,6 @@
+# NodeJS
+node_modules
+yarn.lock
+
+# Jetbrains
+.idea
