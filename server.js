@@ -9,7 +9,7 @@ const Readline = SerialPort.parsers.Readline;
 const port = new SerialPort('/dev/ttyUSB0');
 const parser = new Readline();
 port.pipe(parser);
-parser.on('data', console.log);
+
 
 io.on('connection', function (socket) {
     socket.on('new data', function (data) {
@@ -18,6 +18,9 @@ io.on('connection', function (socket) {
     });
 });
 
+parser.on('data', function(data){
+    io.emit('data', data);
+});
 app.use(express.static('public'));
 
 const serverPort = process.env.PORT || 3000;
