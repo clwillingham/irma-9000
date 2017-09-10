@@ -13,17 +13,19 @@ port.pipe(parser);
 
 io.on('connection', function (socket) {
     socket.on('new data', function (data) {
-        console.log(data);
+
         io.sockets.emit('data', data);
     });
 });
 
-parser.on('data', function(data){
-    io.emit('data', data);
-});
+
 app.use(express.static('public'));
 
 const serverPort = process.env.PORT || 3000;
 http.createServer(app).listen(serverPort, function () {
-    console.log('Example app listening on port '+serverPort+'!')
+    console.log('Example app listening on port '+serverPort+'!');
+    parser.on('data', function(data){
+        console.log(data);
+        io.emit('data', data);
+    });
 });
