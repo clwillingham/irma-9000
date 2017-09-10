@@ -8,6 +8,7 @@
   "license": "MIT",
   "dependencies": {
     "express": "^4.15.4",
+    "moment": "^2.18.1",
     "serialport": "^5.0.0",
     "socket.io": "^2.0.3"
   }

@@ -1,5 +1,6 @@
 const express = require('express');
 const http = require('http');
+const moment = require('moment');
 
 const app = express();
 const server = http.createServer(app);
@@ -19,8 +20,8 @@ app.use(express.static('public'));
 
 io.on('connection', function (socket) {
     socket.on('new data', function (data) {
-
         io.sockets.emit('data', data);
+        fs.appendFileSync('fancy-log.csv', moment().format()+','+data+'\r\n'); //I know using synchronous in a callback, probably not proper
     });
 });
 
