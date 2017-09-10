@@ -7,6 +7,8 @@
   "author": "Chris Willingham (Software), Brett Schubert (Hardware), Irma (Scheduling)",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.15.4"
+    "express": "^4.15.4",
+    "serialport": "^5.0.0",
+    "socket.io": "^2.0.3"
   }
 }

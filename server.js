@@ -1,10 +1,26 @@
 const express = require('express');
-const app = express();
+const http = require('http');
 
-app.get('/', function (req, res) {
-    res.send('Hello World!')
+const app = express();
+const io = require('socket.io')(http);
+
+const SerialPort = require('serialport');
+const Readline = SerialPort.parsers.Readline;
+const port = new SerialPort('/dev/ttyUSB0');
+const parser = new Readline();
+port.pipe(parser);
+parser.on('data', console.log);
+
+io.on('connection', function (socket) {
+    socket.on('new data', function (data) {
+        console.log(data);
+        io.sockets.emit('data', data);
+    });
 });
 
-app.listen(3000, function () {
-    console.log('Example app listening on port 3000!')
+app.use(express.static('public'));
+
+const serverPort = process.env.PORT || 3000;
+http.createServer(app).listen(serverPort, function () {
+    console.log('Example app listening on port '+serverPort+'!')
 });
